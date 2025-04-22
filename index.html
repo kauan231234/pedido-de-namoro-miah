@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carta para Miah 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #ffe6f0, #ffd9ec);
+      font-family: 'Dancing Script', cursive;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .envelope {
+      width: 200px;
+      height: 140px;
+      background: #fff;
+      position: relative;
+      margin-top: 60px;
+      border-radius: 10px;
+      animation: bounce 1s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .flap {
+      width: 0;
+      height: 0;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 70px solid #ff99cc;
+      position: absolute;
+      top: -70px;
+      left: 0;
+      border-radius: 8px;
+      z-index: 2;
+      animation: flapOpen 2s ease forwards;
+      transform-origin: top;
+    }
+
+    .letter {
+      background: white;
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      animation: fadeIn 2s ease 2s forwards;
+      opacity: 0;
+      max-width: 90%;
+      margin: 30px auto;
+    }
+
+    .letter h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      color: #b30059;
+    }
+
+    .letter p {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #b30059;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 20px;
+      color: white;
+      background-color: #ff4da6;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e60073;
+      transform: scale(1.05);
+    }
+
+    @keyframes flapOpen {
+      0% { transform: rotateX(0deg); }
+      100% { transform: rotateX(-180deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .heart {
+      position: fixed;
+      top: -50px;
+      color: #ff66a3;
+      font-size: 24px;
+      animation: fall linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="envelope">
+      <div class="flap"></div>
+    </div>
+
+    <div class="letter">
+      <h1>Para Miah 💌</h1>
+      <p>Oi, minha princesa Miah,</p>
+      <p>Desde que você apareceu na minha vida, tudo ficou mais colorido e cheio de amor.</p>
+      <p>O seu sorriso é a minha paz, e o seu jeitinho é o que mais me encanta.</p>
+      <p>Eu te amo com todo o meu coração, e é com muito carinho que venho te fazer uma pergunta muito especial:</p>
+      <p><strong>Você aceita namorar comigo? 💍❤️</strong></p>
+      <p>Prometo cuidar de você, te fazer sorrir todos os dias e te amar com toda minha alma.</p>
+      <p>Com todo amor,</p>
+      <p><strong>Kauan 💖</strong></p>
+      <button class="btn" onclick="alert('me manda mensagem falando que sim! 😍💖')">Sim, eu aceito! 💘</button>
+      <button class="btn" onclick=>não, eu não aceito! 💘</button>
+    </div>
+  </div>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
