@@ -1,161 +1,394 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Carta para Miah 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amorflix - Kauan & Miah</title>
   <style>
-    html, body {
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    * {
       margin: 0;
       padding: 0;
-      background: linear-gradient(to bottom right, #ffe6f0, #ffd9ec);
-      font-family: 'Dancing Script', cursive;
-      height: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
-      scroll-behavior: smooth;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #141414;
+      color: #ffffff;
+      min-height: 100vh;
     }
 
     .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .navbar {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      padding: 20px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 15px;
     }
 
-    .envelope {
-      width: 200px;
-      height: 140px;
-      background: #fff;
-      position: relative;
-      margin-top: 60px;
-      border-radius: 10px;
-      animation: bounce 1s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    .logo {
+      font-size: 3.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      color: #e50914;
+      font-weight: 700;
     }
 
-    .flap {
-      width: 0;
-      height: 0;
-      border-left: 100px solid transparent;
-      border-right: 100px solid transparent;
-      border-bottom: 70px solid #ff99cc;
-      position: absolute;
-      top: -70px;
-      left: 0;
-      border-radius: 8px;
-      z-index: 2;
-      animation: flapOpen 2s ease forwards;
-      transform-origin: top;
+    .menu {
+      display: flex;
+      gap: 20px;
     }
 
-    .letter {
-      background: white;
-      border-radius: 20px;
-      padding: 30px 20px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      animation: fadeIn 2s ease 2s forwards;
-      opacity: 0;
-      max-width: 90%;
-      margin: 30px auto;
-    }
-
-    .letter h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-      color: #b30059;
-    }
-
-    .letter p {
-      font-size: 20px;
-      margin-bottom: 15px;
-      color: #b30059;
-    }
-
-    .btn {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 20px;
-      color: white;
-      background-color: #ff4da6;
+    .menu button {
+      background: none;
       border: none;
-      border-radius: 30px;
+      font-size: 1rem;
+      color: #bbb;
       cursor: pointer;
+      transition: 0.3s ease;
+      padding: 10px 20px;
+      font-weight: 500;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu button:hover,
+    .menu button.active {
+      color: #fff;
+      background-color: #e50914;
+      box-shadow: 0 6px 18px rgba(229, 9, 20, 0.6);
+      transform: scale(1.1);
+    }
+
+    .content {
+      display: none;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .content.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #e50914;
+      font-family: 'Dancing Script', cursive;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #ddd;
+      margin-bottom: 30px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .episodes {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .episode {
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 280px;
+      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .episode:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(229, 9, 20, 0.5);
+    }
+
+    .episode img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.3s ease;
+    }
+
+    .episode-title {
+      padding: 12px;
+      background-color: #111;
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .btn-love {
+      display: block;
+      margin: 50px auto 20px;
+      background-color: #e50914;
+      color: white;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-love:hover {
+      background-color: #b0060f;
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(229, 9, 20, 0.6);
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid #333;
+    }
+
+    .music-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .music-controls button {
+      background-color: #e50914;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 30px;
+      transition: 0.3s;
+      font-size: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .music-controls button:hover {
+      background-color: #b0060f;
+      transform: scale(1.1);
+      box-shadow: 0 6px 18px rgba(229, 9, 20, 0.6);
+    }
+
+    .music-controls input[type="range"] {
+      width: 150px;
+      margin-top: 10px;
+      border-radius: 10px;
+      background-color: #555;
+      height: 8px;
+      outline: none;
       transition: 0.3s;
     }
 
-    .btn:hover {
-      background-color: #e60073;
-      transform: scale(1.05);
+    .music-controls input[type="range"]:hover {
+      background-color: #e50914;
     }
 
-    @keyframes flapOpen {
-      0% { transform: rotateX(0deg); }
-      100% { transform: rotateX(-180deg); }
+    @media (max-width: 768px) {
+      .logo {
+        font-size: 2.5rem;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .menu {
+        margin-top: 20px;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .menu button {
+        font-size: 0.9rem;
+      }
+
+      .content {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .episodes {
+        gap: 15px;
+      }
+
+      .episode {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .btn-love {
+        font-size: 0.9rem;
+        padding: 12px 24px;
+      }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.8rem;
+      }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+      .navbar {
+        padding: 10px;
+      }
 
-    .heart {
-      position: fixed;
-      top: -50px;
-      color: #ff66a3;
-      font-size: 24px;
-      animation: fall linear infinite;
-      pointer-events: none;
-    }
+      .menu button {
+        font-size: 0.8rem;
+      }
 
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+      .content {
+        padding: 5px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      p {
+        font-size: 0.95rem;
+      }
+
+      .episodes {
+        gap: 10px;
+      }
+
+      .episode {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      .btn-love {
+        font-size: 0.8rem;
+        padding: 10px 20px;
+      }
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <div class="envelope">
-      <div class="flap"></div>
+    <div class="navbar">
+      <div class="logo">Amorflix</div>
+      <div class="menu">
+        <button class="tab-button active" onclick="showContent('cartinha', event)">Cartinha</button>
+        <button class="tab-button" onclick="showContent('sobre', event)">Sobre Ela</button>
+        <button class="tab-button" onclick="showContent('amor', event)">Sobre o Amor</button>
+        <button class="tab-button" onclick="showContent('poema', event)">Poema</button>
+      </div>
     </div>
 
-    <div class="letter">
-      <h1>Para Miah 💌</h1>
-      <p>Oi, minha princesa Miah,</p>
-      <p>Desde que você apareceu na minha vida, tudo ficou mais colorido e cheio de amor.</p>
-      <p>O seu sorriso é a minha paz, e o seu jeitinho é o que mais me encanta.</p>
-      <p>Eu te amo com todo o meu coração, e é com muito carinho que venho te fazer uma pergunta muito especial:</p>
-      <p><strong>Você aceita namorar comigo? 💍❤️</strong></p>
-      <p>Prometo cuidar de você, te fazer sorrir todos os dias e te amar com toda minha alma.</p>
-      <p>Com todo amor,</p>
-      <p><strong>Kauan 💖</strong></p>
-      <button class="btn" onclick="alert('me manda mensagem falando que sim! 😍💖')">Sim, eu aceito! 💘</button>
-      <button class="btn" onclick=>não, eu não aceito! 💘</button>
+    <div id="cartinha" class="content active">
+      <h1>Miah, meu grande amor</h1>
+      <p>
+        Miah, você é simplesmente maravilhosa. <br />
+        Estar com você é como assistir minha série favorita: emocionante, viciante e cheia de momentos inesquecíveis. <br /><br />
+        Seu carinho me fortalece, sua voz me acalma e o seu amor é o maior presente que a vida me deu. <br />
+        Obrigado por ser a protagonista da minha história. ❤️
+      </p>
+
+      <div class="episodes">
+        <div class="episode">
+          <img src="https://cdn.discordapp.com/attachments/1345579090941579284/1364348537852264501/Imagem_do_WhatsApp_de_2025-04-22_as_17.21.04_a32ce669.jpg?ex=68095817&is=68080697&hm=8dca3151be9788950b93b77b4be0fbab959615454ef5590e86b401be8f85770d&" alt="Episódio 1" />
+          <div class="episode-title"></div>
+        </div>
+        <div class="episode">
+          <img src="https://cdn.discordapp.com/attachments/1345579090941579284/1364348568332406937/Imagem_do_WhatsApp_de_2025-04-22_as_17.21.04_35097c6c.jpg?ex=6809581f&is=6808069f&hm=9cac79ea5a20cde9fb362e7e0ac4d2bb03dfcd60c9a6d5ca0b86b33e6ff2f7e1&" alt="Episódio 2" />
+          <div class="episode-title"></div>
+        </div>
+      </div>
+
+      <button class="btn-love" onclick="alert('Eu te amo, Miah! ❤️ – Kauan')">Começar o próximo episódio</button>
+
+      <div class="music-controls">
+        <button onclick="toggleMusic()">Play/Pause Música</button>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" onchange="setVolume()" />
+      </div>
+
+      <audio id="audio" src="https://cdn.discordapp.com/attachments/1345579090941579284/1363234180833738752/03-pecado-mc-kelvinho-mc-don-juan-e-mc-harie_nhRzPNIQ.mp3?ex=68093ec4&is=6807ed44&hm=f93649cf27c2dbb5e76cae3280a0276d99fe9e5e5fc96cccc3a6112d56fa6226&" preload="auto"></audio>
+    </div>
+
+    <div id="sobre" class="content">
+      <h1>Sobre Ela</h1>
+      <p>
+        A Miah tem uma luz própria. Inteligente, gentil, engraçada e linda por dentro e por fora.<br />
+        Ela transforma meus dias com o jeito único que tem de cuidar, sorrir e amar. <br /><br />
+        Com ela, tudo faz mais sentido. E por isso, cada minuto ao seu lado vale mais do que qualquer série do mundo.
+      </p>
+      <h1>TE AMO AMOR DA MINHA VIDA </h1>
+    </div>
+
+    <div id="amor" class="content">
+      <h1>Sobre o Amor</h1>
+      <p>
+        Amor de verdade é mais que paixão — é parceria, respeito, cuidado. <br />
+        É se sentir em casa mesmo estando longe, é sorrir só por lembrar de alguém. <br /><br />
+        Nosso amor é uma história única. E eu quero vivê-la até o último episódio. <br /><br />
+      </p>
+    </div>
+
+    <div id="poema" class="content">
+      <h1>Poema pra Você</h1>
+      <p>
+        Te encontrei sem buscar,<br />
+        E tudo em mim se acendeu.<br />
+        Teu sorriso virou meu lar,<br />
+        E o amor que eu nem sabia, nasceu. 💌
+      </p>
+    </div>
+
+    <div class="footer">
+      © 2025 Amorflix. Uma produção original de Kauan para Miah. Todos os sentimentos reservados.
     </div>
   </div>
 
   <script>
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.innerText = '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (2 + Math.random() * 3) + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
+    function showContent(id, event) {
+      const sections = document.querySelectorAll('.content');
+      const buttons = document.querySelectorAll('.tab-button');
+
+      sections.forEach(s => s.classList.remove('active'));
+      buttons.forEach(b => b.classList.remove('active'));
+
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
     }
 
-    setInterval(createHeart, 300);
-  </script>
+    let audio = document.getElementById("audio");
 
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    function setVolume() {
+      audio.volume = document.getElementById("volumeControl").value;
+    }
+  </script>
 </body>
 </html>
